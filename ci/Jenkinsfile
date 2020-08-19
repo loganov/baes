@@ -1,0 +1,21 @@
+pipeline {
+    agent dev-agent
+
+    stages {
+        stage('Development Build') {
+            steps {
+                echo 'Deploying K8S pod.'
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                echo 'Running Synthetic test.'
+            }
+        }
+        stage('Deploy App.py') {
+            steps {
+                echo 'Deploying to Minikube...'
+            }
+        }
+    }
+}

@@ -24,12 +24,14 @@ Even with the cost incurred for using internal VPC networking, if you've got HA 
   -External routing with publicly available instances. Dogfooding your own APIs, etc.
 
 * Externally Serving
-  - This is just content, or edge systems. Usually nginx, or nodejs, feeding into a message queue. Or for tokens and auth. 
+  - This is just content, or edge systems. Usually nginx, or nodejs, feeding into a message queue. Or for tokens and auth.
 
 ### Networking
-If you were serving static content, whether or not it is getting pulled from a CDN, my basic recommendation would be... A Kube ReplicaSet, no point in doing Stateful if you are just serving simple content. Pod goes down, another one takes it's place. Simple HTTP loadbalancer up front, with the SSL cert and firewall policies, and the pods take cleartext traffic.
+If you were serving static content, whether or not it is getting pulled from a CDN, my basic recommendation would be... A Kube ReplicaSet, no point in doing Stateful if you are just serving simple content. Pod goes down, another one takes it's place. Simple HTTPS loadbalancer up front, with the SSL cert and firewall policies, and the pods take cleartext traffic internally.
 
 ### Automation and Management
 For 'golden images' load as much as you can into the Packer build. For 'lean' images, ```cloud-init``` will handle initial configuration before Ansible can take over.
+
+For Docker/Kube...enjoy your sidecar...for your monitoring and anything else you actually need. (Or if you're running a JaveEE stack you can publish the JMX port.)
 
 Terraform to manage resources. ```cloud-init```, CloudFormation, etc.
