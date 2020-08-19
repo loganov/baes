@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peakapp-integration
+  labels:
+    app: peakapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: peakapp
+  template:
+    metadata:
+      labels:
+        app: peakapp
+        environment: integration
+    spec:
+      containers:
+      - name: peakapp
+        image: localhost.localdomain:5200/skippy
+        ports:
+        - containerPort: 5200
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "2"
+          requests:
+            memory: "256Mi"
+            cpu: "1"
